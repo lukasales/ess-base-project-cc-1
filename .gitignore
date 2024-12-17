@@ -13,6 +13,7 @@ lerna-debug.log*
 
 # Diretórios de node e builds
 node_modules
+lib/
 dist
 dist-ssr
 *.local
@@ -33,6 +34,7 @@ cypress/downloads
 *.njsproj
 *.sln
 *.sw?
+Thumbs.db
 
 # Arquivos de ambiente
 .env
@@ -42,3 +44,15 @@ cypress/downloads
 .env.development
 .env.staging
 .env.production
+coverage/
+.env.prod
+.env.dev
+
+# Optional npm cache directory
+.npm
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Deploy
+.vercel
