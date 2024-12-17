@@ -35,6 +35,7 @@ cypress/downloads
 *.sln
 *.sw?
 Thumbs.db
+venv/
 
 # Arquivos de ambiente
 .env
