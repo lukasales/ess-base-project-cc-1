@@ -1,39 +1,49 @@
+const { Router } = require('express');
 const HistoryService = require('../services/history.service');
-const { FailureResult } = require('../utils/result');
-const { HttpError } = require('../utils/errors/http.error');
+const { SuccessResult } = require('../utils/result');
 
 class HistoryController {
+  constructor(router, historyService) {
+    this.router = router;
+    this.historyService = historyService;
+    this.prefix = '/users';
+    this.initRoutes();
+  }
+
+  initRoutes() {
+    this.router.get(`${this.prefix}/:id/history`, this.getHistory.bind(this));
+    this.router.put(`${this.prefix}/:id/history`, this.updateHistory.bind(this));
+  }
+
   async getHistory(req, res) {
     try {
-      const { id } = req.params;
-      const result = await new HistoryService().getHistory(id);
-      return result.handle(res);
+      const userId = req.params.id;
+      const result = await this.historyService.getHistory(userId);
+      new SuccessResult({
+        msg: `${req.method} ${req.originalUrl}`,
+        data: result.data.map(item => item.videoId),
+        code: result.code,
+      }).handle(res);
     } catch (error) {
-      if (error instanceof HttpError) {
-        return new FailureResult({
-          msg: error.msg || error.message,
-          msgCode: error.msgCode,
-          code: error.status,
-        }).handle(res);
-      }
-      return new FailureResult({ msg: 'Unexpected error' }).handle(res);
+      res.status(error.status || 500).json({ msg: error.msg || error.message, msgCode: error.msgCode });
     }
   }
 
   async updateHistory(req, res) {
     try {
-      const { id } = req.params;
-      const result = await new HistoryService().addOrUpdateHistory(id, req.body);
-      return result.handle(res);
+      const userId = req.params.id;
+      const videoData = req.body;
+      const result = await this.historyService.addOrUpdateHistory(userId, videoData);
+      new SuccessResult({
+        msg: result.msg,
+        data: result.data.map(item => ({
+          videoId: item.videoId,
+          ultimaVisualizacao: item.ultimaVisualizacao,
+        })),
+        code: result.code,
+      }).handle(res);
     } catch (error) {
-      if (error instanceof HttpError) {
-        return new FailureResult({
-          msg: error.msg || error.message,
-          msgCode: error.msgCode,
-          code: error.status,
-        }).handle(res);
-      }
-      return new FailureResult({ msg: 'Unexpected error' }).handle(res);
+      res.status(error.status || 500).json({ msg: error.msg || error.message, msgCode: error.msgCode });
     }
   }
 }
