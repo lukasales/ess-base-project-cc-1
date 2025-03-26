@@ -1,7 +1,7 @@
 Feature: Sistema de Visibilidade de Vídeos (Serviço)
 
   Scenario: Obter dados de vídeo com sucesso
-    Given existe um vídeo com id "101" no sistema
+    Given vídeo com id "101"
     And esse vídeo tem título "Stranger Things - Piloto"
     And duração "45 minutos"
     When faço uma requisição GET para "/videos/101"
@@ -17,14 +17,14 @@ Feature: Sistema de Visibilidade de Vídeos (Serviço)
       """
 
   Scenario: Vídeo não encontrado
-    Given não existe um vídeo com id "999"
+    Given vídeo com id "999" não existe
     When faço uma requisição GET para "/videos/999"
     Then o status da resposta é "404 Not Found"
     And o corpo da resposta (JSON) indica "Vídeo não encontrado"
 
   Scenario: Registrar visualização de vídeo com sucesso
-    Given existe um vídeo com id "101" no sistema
-    And existe um usuário com id "1"
+    Given vídeo com id "101"
+    And Lucas Sales com id "1"
     When faço uma requisição POST para "/videos/101/visualizacao" com o corpo:
       """
       {

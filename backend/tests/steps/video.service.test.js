@@ -11,21 +11,17 @@ defineFeature(feature, (test) => {
   let videoService;
 
   beforeAll(async () => {
-    // Obtém a instância do banco de dados (que já se conecta, inicializa e configura)
     const instance = await db.getInstance();
-    // Semeia os dados
     await instance.seed();
-    // Cria e inicializa o repositório de vídeos
     const videoRepo = new VideoRepository();
     await videoRepo.init();
-    // Injeta o repositório no serviço
     videoService = new VideoService(videoRepo);
   });
 
   test('Retornar vídeo por videoId', ({ given, when, then }) => {
-    given('o método getVideo do VideoService retorna um vídeo com videoId "101", título "Stranger Things - Piloto" e duração "45 minutos"', () => {
-      // Os dados já estão inseridos pelo seed do banco.
+    given('que o método getVideo do VideoService retorna um vídeo com videoId "101", título "Stranger Things - Piloto" e duração "45 minutos"', () => {
     });
+
     when('o método getVideo do VideoService for chamado com o id "101"', async () => {
       try {
         serviceResult = await videoService.getVideo('101');
@@ -33,6 +29,7 @@ defineFeature(feature, (test) => {
         errorCaught = err;
       }
     });
+
     then('o vídeo retornado deve ter videoId "101", título "Stranger Things - Piloto" e duração "45 minutos"', () => {
       if (errorCaught) throw errorCaught;
       expect(serviceResult.videoId).toBe('101');

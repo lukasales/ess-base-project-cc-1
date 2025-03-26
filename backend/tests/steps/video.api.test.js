@@ -18,7 +18,7 @@ defineFeature(feature, (test) => {
   let response;
 
   test('Obter dados de vídeo com sucesso', ({ given, when, then }) => {
-    given('existe um vídeo com id "101" no sistema', () => {});
+    given('vídeo com id "101"', () => {});
     given('esse vídeo tem título "Stranger Things - Piloto"', () => {});
     given('duração "45 minutos"', () => {});
 
@@ -35,13 +35,11 @@ defineFeature(feature, (test) => {
       expect(response.body.data.videoId).toBe(expected.videoId);
       expect(response.body.data.titulo).toBe(expected.titulo);
       expect(response.body.data.duracao).toBe(expected.duracao);
-      // Opcional: teste também o videoLink, se necessário
-      // expect(response.body.data.videoLink).toBe(expected.videoLink);
     });
   });
 
   test('Vídeo não encontrado', ({ given, when, then }) => {
-    given('não existe um vídeo com id "999"', () => {});
+    given('vídeo com id "999" não existe', () => {});
     when('faço uma requisição GET para "/videos/999"', async () => {
       response = await supertest(app).get('/api/videos/999');
     });
@@ -54,8 +52,8 @@ defineFeature(feature, (test) => {
   });
 
   test('Registrar visualização de vídeo com sucesso', ({ given, when, then }) => {
-    given('existe um vídeo com id "101" no sistema', () => {});
-    given('existe um usuário com id "1"', () => {});
+    given('vídeo com id "101"', () => {});
+    given('Lucas Sales com id "1"', () => {});
     when('faço uma requisição POST para "/videos/101/visualizacao" com o corpo:', async (docString) => {
       const payload = JSON.parse(docString);
       response = await supertest(app).post('/api/videos/101/visualizacao').send(payload);

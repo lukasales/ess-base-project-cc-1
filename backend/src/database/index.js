@@ -68,9 +68,9 @@ class Database {
   async seed() {
     await this.db.exec(`
       INSERT OR IGNORE INTO users (id, nome) VALUES 
-        ('1', 'User 1'),
-        ('2', 'User 2'),
-        ('3', 'User 3');
+        ('1', 'Lucas Sales'),
+        ('2', 'Francisco'),
+        ('3', 'Lucas Alcantara');
     `);
   
     await this.db.exec(`

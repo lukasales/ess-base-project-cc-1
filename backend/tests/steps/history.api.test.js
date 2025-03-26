@@ -18,9 +18,8 @@ defineFeature(feature, (test) => {
   let response;
 
   test('Obter histórico com sucesso (não vazio)', ({ given, when, then }) => {
-    given('existe um usuário com id "1" cadastrado no sistema', () => {});
-    // Repita o given para a condição "And" se necessário:
-    given('esse usuário possui os vídeos "101" e "102" no histórico', () => {});
+    given('Lucas Sales com id "1"', () => {});
+    given('Lucas Sales possui os vídeos "101" e "102" no histórico', () => {});
 
     when('faço uma requisição GET para "/users/1/history"', async () => {
       response = await supertest(app).get('/api/users/1/history');
@@ -36,8 +35,8 @@ defineFeature(feature, (test) => {
   });
 
   test('Obter histórico vazio', ({ given, when, then }) => {
-    given('existe um usuário com id "2" cadastrado no sistema', () => {});
-    given('esse usuário não possui nenhum vídeo no histórico', () => {});
+    given('Francisco com id "2"', () => {});
+    given('Francisco não possui nenhum vídeo no histórico', () => {});
 
     when('faço uma requisição GET para "/users/2/history"', async () => {
       response = await supertest(app).get('/api/users/2/history');
@@ -53,7 +52,7 @@ defineFeature(feature, (test) => {
   });
 
   test('Obter histórico de usuário inexistente', ({ given, when, then }) => {
-    given('não existe um usuário com id "999" no sistema', () => {});
+    given('o id "999" não está no sistema', () => {});
 
     when('faço uma requisição GET para "/users/999/history"', async () => {
       response = await supertest(app).get('/api/users/999/history');
@@ -69,8 +68,8 @@ defineFeature(feature, (test) => {
   });
 
   test('Adicionar vídeo ao histórico', ({ given, when, then }) => {
-    given('existe um usuário com id "3" cadastrado no sistema', () => {});
-    given('esse usuário não possui o vídeo "201" no histórico', () => {});
+    given('Lucas Alcantara com id "3"', () => {});
+    given('Lucas Alcantara não possui o vídeo "201" no histórico', () => {});
 
     when('faço uma requisição PUT para "/users/3/history" com o corpo:', async (docString) => {
       const payload = JSON.parse(docString);
@@ -93,7 +92,7 @@ defineFeature(feature, (test) => {
   });
 
   test('Atualizar histórico para um usuário', ({ given, when, then }) => {
-    given('existe um usuário com id "3" que já possui o vídeo "201" no histórico', () => {});
+    given('Lucas Alcantara com id "3" já possui o vídeo "201" no histórico', () => {});
 
     when('faço uma requisição PUT para "/users/3/history" com o corpo:', async (docString) => {
       const payload = JSON.parse(docString);

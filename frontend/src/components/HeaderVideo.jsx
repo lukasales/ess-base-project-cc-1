@@ -20,8 +20,17 @@ export default function HeaderVideo() {
             CINEvideo
           </Link>
         </h1>
+
+        {/* Subtítulo da página */}
         <h2 style={subtitleStyle}>Visualização</h2>
+
+        {/* Botão para ir ao histórico */}
+        <Link to="/history" style={styles.historyButton}>
+          Histórico
+        </Link>
       </div>
+
+      {/* Barra de pesquisa */}
       <div style={rightContainer}>
         <input
           type="text"
@@ -33,3 +42,16 @@ export default function HeaderVideo() {
     </header>
   );
 }
+
+const styles = {
+  historyButton: {
+    backgroundColor: '#C00',
+    color: '#fff',
+    textDecoration: 'none',
+    padding: '8px 12px',
+    borderRadius: '8px',
+    fontWeight: 'bold',
+    marginTop: '10px',
+    display: 'inline-block',
+  },
+};
